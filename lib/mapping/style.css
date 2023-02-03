@@ -2,6 +2,7 @@
     --path-color: #444444;
     --wall-color: #111111;
     --selc-color: #222222;
+    --spwn-color: #522626;
     --padding: 2px;
 
     display: grid;
@@ -45,14 +46,21 @@
     padding: var(--padding);
 }
 .tbm-tile.tbm-tile-wall {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
     background: var(--wall-color);
     border-radius: 5px;
+}
+.tbm-tile.tbm-tile-wall[active] {
+    cursor: pointer;
 }
 .tbm-tile.tbm-tile-wall[active]::after {
     content: "";
     display: inline-block;
-    width: calc(100% - 2px);
-    height: calc(100% - 2px);
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
     background-size: cover;
     background: var(--selc-color);
     border: 1px solid var(--selc-color);
@@ -62,7 +70,6 @@
 }
 .tbm-tile.tbm-tile-wall[active]:hover::after {
     border-color: white;
-    cursor: pointer;
 }
 
 .tbm-tile.tbm-tile-path {
@@ -82,7 +89,8 @@
 }
 
 .tbm-tile.tbm-tile-path.tbm-spawn {
-    background-color: #522626;
+    --direction: to top;
+    background: linear-gradient(var(--direction), var(--path-color) 50%, var(--spwn-color));
 }
 
 

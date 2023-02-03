@@ -1,3 +1,10 @@
-const MAPPING = new TableMap(29, 17, document.getElementById("content"));
+var MAPPING = [];
 
-MAPPING.plot();
+function startReign() {
+    document.getElementById("startMenu").setAttribute("hidden", true);
+
+    setTimeout(() => {
+        MAPPING = new TableMap(29, 15, document.getElementById("content"));
+        MAPPING.plot();
+    }, 200);
+}

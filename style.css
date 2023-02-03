@@ -25,3 +25,41 @@ html, body {
     justify-content: center;
     align-items: center;
 }
+
+#startMenu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+
+    transition: opacity ease 200ms;
+}
+#startMenu[hidden] {
+    opacity: 0;
+}
+#startMenu img {
+    width: 200px;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+}
+#startMenu button {
+    line-height: 50px;
+    font-size: 2rem;
+    font-family: monospace;
+    font-weight: bold;
+    color: white;
+    background: var(--background-primary);
+    border: 2px solid white;
+
+    transition: all 250ms ease;
+}
+#startMenu button:hover {
+    background: white;
+    color: var(--background-primary);
+    cursor: pointer;
+}
+
+#startMenu button:active {
+    background: var(--background-secondary);
+    color: white;
+    border-color: var(--background-secondary);
+}
