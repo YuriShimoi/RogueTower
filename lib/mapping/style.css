@@ -1,0 +1,97 @@
+.tbm-table {
+    --path-color: #444444;
+    --wall-color: #111111;
+    --selc-color: #222222;
+    --padding: 2px;
+
+    display: grid;
+    margin: 50px;
+
+    background: var(--wall-color);
+    border-radius: 5px;
+    overflow: hidden;
+
+    --rows: 3;
+    grid-template-columns: repeat(var(--rows), auto);
+
+    border: 5px solid #181818;
+}
+
+.tbm-object {
+    padding: var(--padding);
+}
+.tbm-object::after {
+    content: "";
+    display: inline-block;
+    background-size: cover;
+    margin-top: var(--padding);
+    width: calc(100% - calc(var(--padding) * 2));
+    height: calc(100% - calc(var(--padding) * 2));
+
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+}
+.tbm-object.tbm-object-castle::after {
+    background-image: url('icons/castle.png');
+}
+
+.tbm-tile {
+    --size: 36px;
+    --border: 20%;
+
+    width: var(--size);
+    height: var(--size);
+    display: inline-block;
+    padding: var(--padding);
+}
+.tbm-tile.tbm-tile-wall {
+    background: var(--wall-color);
+    border-radius: 5px;
+}
+.tbm-tile.tbm-tile-wall[active]::after {
+    content: "";
+    display: inline-block;
+    width: calc(100% - 2px);
+    height: calc(100% - 2px);
+    background-size: cover;
+    background: var(--selc-color);
+    border: 1px solid var(--selc-color);
+    border-radius: 5px;
+    
+    animation: forwards 800ms PopIn;
+}
+.tbm-tile.tbm-tile-wall[active]:hover::after {
+    border-color: white;
+    cursor: pointer;
+}
+
+.tbm-tile.tbm-tile-path {
+    --topright   : var(--border);
+    --topleft    : var(--border);
+    --bottomright: var(--border);
+    --bottomleft : var(--border);
+
+    border-radius: var(--topleft) var(--topright) var(--bottomright) var(--bottomleft);
+
+    background: var(--path-color);
+    scale: 0;
+
+    --distance: 0;
+    animation: forwards 300ms PopIn;
+    animation-delay: calc(20ms * var(--distance));
+}
+
+.tbm-tile.tbm-tile-path.tbm-spawn {
+    background-color: #522626;
+}
+
+
+/* ANIMATIONS */
+@keyframes PopIn {
+    from {
+        scale: 0;
+    }
+    to {
+        scale: 1;
+    }
+}
