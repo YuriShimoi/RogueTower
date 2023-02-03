@@ -1,4 +1,4 @@
-.tbm-table {
+.tbm-container {
     --path-color: #292929;
     --road-color: #333333;
     --wall-color: #0a0a0a;
@@ -6,8 +6,14 @@
     --spwn-color: #631e1e;
     --padding: 2px;
 
+    overflow: hidden;
+    margin: 20px;
+}
+.tbm-table {
     display: grid;
-    margin: 50px;
+    width: calc(100% - 10px);
+    overflow-y: hidden;
+    overflow-x: auto;
 
     background: var(--wall-color);
     border-radius: 5px;
@@ -16,6 +22,9 @@
     grid-template-columns: repeat(var(--rows), auto);
 
     border: 5px solid var(--spwn-color);
+}
+.tbm-table::-webkit-scrollbar {
+    display: none;
 }
 
 .tbm-object {
