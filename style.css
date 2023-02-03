@@ -35,6 +35,7 @@ html, body {
 }
 #startMenu[hidden] {
     opacity: 0;
+    pointer-events: none;
 }
 #startMenu img {
     width: 200px;

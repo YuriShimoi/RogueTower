@@ -2,7 +2,7 @@
     --path-color: #444444;
     --wall-color: #111111;
     --selc-color: #222222;
-    --spwn-color: #522626;
+    --spwn-color: #631e1e;
     --padding: 2px;
 
     display: grid;
@@ -90,7 +90,7 @@
 
 .tbm-tile.tbm-tile-path.tbm-spawn {
     --direction: to top;
-    background: linear-gradient(var(--direction), var(--path-color) 50%, var(--spwn-color));
+    background: linear-gradient(var(--direction), var(--path-color) 30%, var(--spwn-color));
 }
 
 
