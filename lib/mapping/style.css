@@ -39,6 +39,7 @@
     display: inline-block;
     padding: var(--padding);
 }
+
 .tbm-tile.tbm-tile-wall {
     display: flex;
     align-items: center;
@@ -110,11 +111,11 @@
 }
 
 .tbm-tile.tbm-tile-path.tbm-spawn {
-    --direction: to top;
-    background: linear-gradient(var(--direction), var(--path-color) 20%, var(--spwn-color));
+    --direction: top;
+    background: linear-gradient(to var(--direction), var(--path-color) 20%, var(--spwn-color));
 }
 .tbm-tile.tbm-tile-path.tbm-spawn::after {
-    background: linear-gradient(var(--direction), var(--road-color) 50%, var(--spwn-color));
+    background: linear-gradient(to var(--direction), var(--road-color) 50%, var(--spwn-color));
 }
 
 .tbm-tile.tbm-tile-container {
