@@ -38,7 +38,7 @@ html, body {
     pointer-events: none;
 }
 #startMenu img {
-    width: 200px;
+    width: 240px;
     image-rendering: crisp-edges;
     image-rendering: pixelated;
 }

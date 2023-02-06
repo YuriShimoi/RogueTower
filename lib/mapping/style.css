@@ -27,25 +27,6 @@
     display: none;
 }
 
-.tbm-object {
-    padding: var(--padding);
-}
-.tbm-object::after {
-    content: "";
-    display: inline-block;
-    background-size: cover;
-    margin-top: var(--padding);
-    width: calc(100% - calc(var(--padding) * 2));
-    height: calc(100% - calc(var(--padding) * 2));
-
-    image-rendering: crisp-edges;
-    image-rendering: pixelated;
-}
-
-.tbm-object.tbm-object-castle::after {
-    background-image: url('icons/castle.png');
-}
-
 .tbm-tile {
     --size: 36px;
     --border: 20%;
@@ -83,16 +64,6 @@
 }
 .tbm-tile.tbm-tile-wall[active]:hover::after {
     border-color: white;
-}
-
-.tbm-tile.tbm-tile-container {
-    --topright   : var(--border);
-    --topleft    : var(--border);
-    --bottomright: var(--border);
-    --bottomleft : var(--border);
-    
-    border-radius: var(--topleft) var(--topright) var(--bottomright) var(--bottomleft);
-    background: var(--road-color);
 }
 
 .tbm-tile.tbm-tile-path {
@@ -140,6 +111,43 @@
 }
 .tbm-tile.tbm-tile-path.tbm-spawn::after {
     background: linear-gradient(var(--direction), var(--road-color) 50%, var(--spwn-color));
+}
+
+.tbm-tile.tbm-tile-container {
+    --topright   : var(--border);
+    --topleft    : var(--border);
+    --bottomright: var(--border);
+    --bottomleft : var(--border);
+    
+    border-radius: var(--topleft) var(--topright) var(--bottomright) var(--bottomleft);
+    display: block;
+}
+.tbm-tile.tbm-tile-container::after {
+    display: none;
+}
+
+.tbm-tile.tbm-tile-container > .tbm-object {
+    padding: var(--padding);
+}
+.tbm-tile.tbm-tile-container > .tbm-object::after {
+    content: "";
+    display: inline-block;
+    background-size: cover;
+    margin-top: var(--padding);
+    width: calc(100% - calc(var(--padding) * 2));
+    height: calc(100% - calc(var(--padding) * 2));
+
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+}
+.tbm-tile.tbm-tile-container > .tbm-object.tbm-object-castle::after {
+    background-image: url('icons/castle.png');
+}
+.tbm-tile.tbm-tile-container > .tbm-object.tbm-object-crystals::after {
+    background-image: url('icons/crystals.png');
+}
+.tbm-tile.tbm-tile-container > .tbm-object.tbm-object-gold::after {
+    background-image: url('icons/gold.png');
 }
 
 
