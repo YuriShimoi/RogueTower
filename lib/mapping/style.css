@@ -145,9 +145,11 @@
 }
 .tbm-tile.tbm-tile-container > .tbm-object.tbm-object-crystals::after {
     background-image: url('icons/crystals.png');
+    scale: 0.5;
 }
 .tbm-tile.tbm-tile-container > .tbm-object.tbm-object-gold::after {
     background-image: url('icons/gold.png');
+    scale: 0.5;
 }
 
 
