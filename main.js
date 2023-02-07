@@ -1,6 +1,6 @@
 var MAPPING = [];
 
-function startReign() {
+function startGame() {
     document.getElementById("startMenu").setAttribute("hidden", true);
 
     setTimeout(() => {
