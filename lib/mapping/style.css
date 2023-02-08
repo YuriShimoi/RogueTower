@@ -9,12 +9,15 @@
 
     overflow: hidden;
     margin: 20px;
+
+    clip: rect(0, auto, auto, 0);
+    position: fixed;
 }
 .tbm-table {
     display: grid;
     width: calc(100% - 10px);
     overflow-y: hidden;
-    overflow-x: auto;
+    overflow-x: overlay;
 
     background: var(--wall-color);
     border-radius: 5px;
@@ -25,7 +28,14 @@
     border: 5px solid var(--spwn-color);
 }
 .tbm-table::-webkit-scrollbar {
-    display: none;
+    height: 8px;
+    width: 100%;
+    background-color: #00000044;
+    border-radius: 10px;
+}
+.tbm-table::-webkit-scrollbar-thumb {
+    background-color: #ffffff33;
+    border-radius: 10px;
 }
 
 .tbm-tile {
@@ -158,6 +168,31 @@
 }
 
 
+
+.tbm-enemy {
+    margin: 4px;
+    width: 32px;
+    height: 32px;
+    display: block;
+    position: absolute;
+
+    background-size: cover;
+    
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+
+    --start-top: 0;
+    --start-top: 0;
+    top: var(--start-top);
+    left: var(--start-left);
+
+    --speed-delay: 200;
+    transition: top calc(var(--speed-delay) * 1ms) linear, left calc(var(--speed-delay) * 1ms) linear;
+    /* animation: normal startMove calc(var(--speed-delay) * 1ms) linear; */
+}
+
+
+
 /* ANIMATIONS */
 @keyframes PopIn {
     from {
@@ -165,5 +200,16 @@
     }
     to {
         scale: 1;
+    }
+}
+
+@keyframes startMove {
+    from {
+        top:  var(--start-top);
+        left: var(--start-left);
+    }
+    to {
+        top:  var(--end-top);
+        left: var(--end-left);
     }
 }
