@@ -73,7 +73,7 @@
     background-size: cover;
     background: var(--selc-color);
     border: 1px solid var(--selc-color);
-    border-radius: 5px;
+    border-radius: 2px;
     
     animation: forwards 800ms PopIn;
 }
@@ -170,16 +170,22 @@
 
 
 .tbm-enemy {
-    margin: 4px;
-    width: 32px;
-    height: 32px;
+    margin: 8px;
+    width: 24px;
+    height: 24px;
     display: block;
     position: absolute;
 
     background-size: cover;
     
-    image-rendering: crisp-edges;
-    image-rendering: pixelated;
+    --shadow-size: 2px;
+    --shadow-color: var(--spwn-color);
+    filter: drop-shadow(var(--shadow-size) 0 0 var(--shadow-color))
+            drop-shadow(0 var(--shadow-size) 0 var(--shadow-color))
+            drop-shadow(calc(var(--shadow-size) * -1) 0 0 var(--shadow-color))
+            drop-shadow(0 calc(var(--shadow-size) * -1) 0 var(--shadow-color));
+    /* image-rendering: crisp-edges;
+    image-rendering: pixelated; */
 
     --start-top: 0;
     --start-top: 0;
@@ -189,6 +195,10 @@
     --speed-delay: 200;
     transition: top calc(var(--speed-delay) * 1ms) linear, left calc(var(--speed-delay) * 1ms) linear;
     /* animation: normal startMove calc(var(--speed-delay) * 1ms) linear; */
+}
+.tbm-enemy[active] {
+    /* filter: brightness(0.3) sepia(1) hue-rotate(300deg) saturate(3); */
+    animation: alternate infinite linear 300ms Ragdoll;
 }
 
 
@@ -211,5 +221,14 @@
     to {
         top:  var(--end-top);
         left: var(--end-left);
+    }
+}
+
+@keyframes Ragdoll {
+    from {
+        transform: rotateZ(-10deg);
+    }
+    to {
+        transform: rotateZ(10deg);
     }
 }
