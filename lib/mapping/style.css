@@ -198,7 +198,7 @@
 }
 .tbm-enemy[active] {
     /* filter: brightness(0.3) sepia(1) hue-rotate(300deg) saturate(3); */
-    animation: alternate infinite linear 300ms Ragdoll;
+    animation: alternate infinite linear calc(calc(var(--speed-delay) / 5) * 1ms) Ragdoll;
 }
 
 
