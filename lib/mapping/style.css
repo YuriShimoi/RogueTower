@@ -175,6 +175,7 @@
     height: 24px;
     display: block;
     position: absolute;
+    z-index: 99;
 
     background-size: cover;
     
@@ -199,6 +200,12 @@
 .tbm-enemy[active] {
     /* filter: brightness(0.3) sepia(1) hue-rotate(300deg) saturate(3); */
     animation: alternate infinite linear calc(calc(var(--speed-delay) / 5) * 1ms) Ragdoll;
+}
+
+
+
+.tbm-tile.tbm-tile-wall[active][selected]::after {
+    background: white;
 }
 
 
