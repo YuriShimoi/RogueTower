@@ -50,6 +50,7 @@ html, body {
     color: white;
     background: var(--background-primary);
     border: 2px solid white;
+    outline: none;
 
     transition: all 250ms ease;
 }
