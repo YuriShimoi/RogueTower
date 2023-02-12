@@ -2,9 +2,11 @@ var MAPPING = null;
 var CONTROL = null;
 const TABLE = document.getElementById("content");
 const SCORE = {
-    'population': 0,
-    'gold'      : 0,
-    'crystal'   : 0
+    'population'    : {'icon': "lib/mapping/icons/castle.png", 'value': 0},
+    'population_max': {'icon': "lib/mapping/icons/castle.png", 'value': 0},
+    
+    'gold'      : {'icon': "lib/mapping/icons/gold.png", 'value': 0},
+    'crystal'   : {'icon': "lib/mapping/icons/crystals.png", 'value': 0}
 };
 
 function startGame() {
@@ -14,6 +16,7 @@ function startGame() {
         MAPPING = new TableMap(29, 15, TABLE);
         CONTROL = new RaidControl(MAPPING);
         MAPPING.plot().then(() => {
+            startGUI();
             bindCastleGUI();
             bindTowerPlaces();
         });
@@ -26,6 +29,11 @@ function startGame() {
             CONTROL.nextWave();            
         }, 3000);
     }, 200);
+}
+
+function startGUI() {
+    s= new StaticGUI("content", "title", "bottomleft");
+    s.open(TABLE.querySelector(TableMap.DICTIONARY.container));
 }
 
 function bindCastleGUI() {

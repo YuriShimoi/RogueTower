@@ -3,7 +3,7 @@
     --color-primary: white;
 }
 
-.fGUI-background {
+.GUI-background {
     position: absolute;
     top: 0;
     left: 0;
@@ -14,7 +14,7 @@
     z-index: 9999;
 }
 
-.fGUI-container {
+.GUI-container {
     position: absolute;
     min-width: 80px;
     min-height: 40px;
@@ -29,7 +29,7 @@
     /* animation: PopInGUI 200ms ease; */
 }
 
-.fGUI-container .fGUI-anchor-container {
+.GUI-container .GUI-anchor-container {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -38,6 +38,21 @@
     justify-content: center;
 }
 
+.GUI-anchor-container .GUI-title {
+    display: inline-block;
+    text-align: center;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 1.4rem;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+
+
+/* Floating GUI */
 .fGUI-anchor-container .fGUI-anchor {
     width: fit-content;
     height: fit-content;
@@ -52,16 +67,32 @@
     animation: none !important;
 }
 
-.fGUI-anchor-container .fGUI-title {
-    display: inline-block;
-    text-align: center;
-    max-width: 300px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 1.4rem;
-    text-decoration: underline;
-    text-underline-offset: 2px;
+
+
+/* Static GUI */
+.sGUI-background {
+    display: flex;
+    background: transparent;
+    backdrop-filter: none;
+    pointer-events: none;
+}
+.sGUI-container {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+
+    min-width: auto;
+    min-height: auto;
+
+    font-weight: 600;
+    text-shadow: 0px  1px 0 var(--background-primary),
+                 1px  0px 0 var(--background-primary),
+                 0px -1px 0 var(--background-primary),
+                -1px  0px 0 var(--background-primary),
+                 1px  1px 0 var(--background-primary),
+                -1px -1px 0 var(--background-primary),
+                -1px  1px 0 var(--background-primary),
+                 1px -1px 0 var(--background-primary);
 }
 
 
