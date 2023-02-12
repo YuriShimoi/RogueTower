@@ -1,6 +1,11 @@
 var MAPPING = null;
 var CONTROL = null;
 const TABLE = document.getElementById("content");
+const SCORE = {
+    'population': 0,
+    'gold'      : 0,
+    'crystal'   : 0
+};
 
 function startGame() {
     document.getElementById("startMenu").setAttribute("hidden", true);
@@ -8,14 +13,27 @@ function startGame() {
     setTimeout(() => {
         MAPPING = new TableMap(29, 15, TABLE);
         CONTROL = new RaidControl(MAPPING);
-        MAPPING.plot().then(bindTowerPlaces);
+        MAPPING.plot().then(() => {
+            bindCastleGUI();
+            bindTowerPlaces();
+        });
 
+
+        // call raids
         let amount = 50;
         let summon_interval = setInterval(() => {
             if(!amount--) clearInterval(summon_interval);
             CONTROL.nextWave();            
         }, 3000);
     }, 200);
+}
+
+function bindCastleGUI() {
+    let castle = TABLE.querySelector(TableMap.DICTIONARY.castle);
+    castle.onclick = (e) => {
+        let castleGUI = new FloatingGUI(e.target, JSON.stringify(SCORE), "Castle", false);
+        castleGUI.open(TABLE.querySelector(TableMap.DICTIONARY.container));
+    }
 }
 
 function bindTowerPlaces() {

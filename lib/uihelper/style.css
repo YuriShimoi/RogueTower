@@ -21,7 +21,7 @@
     padding: 10px;
     border: 1px solid white;
     box-shadow: 0 0 0 3px var(--background-primary);
-    border-radius: 3px;
+    border-radius: 2px;
     background: var(--background-primary);
     color: var(--color-primary);
     
@@ -34,6 +34,8 @@
     align-items: center;
     gap: 10px;
     margin-bottom: 10px;
+
+    justify-content: center;
 }
 
 .fGUI-anchor-container .fGUI-anchor {

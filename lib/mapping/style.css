@@ -157,6 +157,7 @@
     image-rendering: pixelated;
 }
 .tbm-tile.tbm-tile-container > .tbm-object.tbm-object-castle::after {
+    cursor: pointer;
     background-image: url('icons/castle.png');
     scale: 1;
 }
