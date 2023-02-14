@@ -1,9 +1,11 @@
-var MAPPING = null;
-var CONTROL = null;
+var MAPPING  = null;
+var CONTROL  = null;
+var scoreGUI = null;
+
 const TABLE = document.getElementById("content");
 const SCORE = {
     'population'    : {'icon': "lib/mapping/icons/castle.png", 'value': 0},
-    'population_max': {'icon': "lib/mapping/icons/castle.png", 'value': 0},
+    'population_max': {'value': 0},
     
     'gold'      : {'icon': "lib/mapping/icons/gold.png", 'value': 0},
     'crystal'   : {'icon': "lib/mapping/icons/crystals.png", 'value': 0}
@@ -32,8 +34,52 @@ function startGame() {
 }
 
 function startGUI() {
-    s= new StaticGUI("content", "title", "bottomleft");
-    s.open(TABLE.querySelector(TableMap.DICTIONARY.container));
+    const iconWithValue = (value, icon_path) => {
+        let containerHTML = document.createElement("SPAN");
+        containerHTML.style = "display: flex; gap: 5px;";
+
+        let spanIcon = document.createElement("IMG");
+        spanIcon.src = icon_path;
+        containerHTML.appendChild(spanIcon);
+        
+        let spanValue = document.createElement("SPAN");
+        spanValue.innerHTML = value;
+        containerHTML.appendChild(spanValue);
+        
+        return containerHTML;
+    };
+    let content = document.createElement("DIV");
+    content.style = "display: flex; gap: 15px;";
+    content.appendChild(iconWithValue(SCORE.crystal.value, SCORE.crystal.icon));
+    content.appendChild(iconWithValue(SCORE.gold.value, SCORE.gold.icon));
+    content.appendChild(iconWithValue(`${SCORE.population.value}/${SCORE.population_max.value}`, SCORE.population.icon));
+
+    scoreGUI = new StaticGUI(content, "", "bottomleft", TABLE.querySelector(TableMap.DICTIONARY.container));
+    scoreGUI.open();
+}
+
+function updateScoreGUI() {
+    const iconWithValue = (value, icon_path) => {
+        let containerHTML = document.createElement("SPAN");
+        containerHTML.style = "display: flex; gap: 5px;";
+
+        let spanIcon = document.createElement("IMG");
+        spanIcon.src = icon_path;
+        containerHTML.appendChild(spanIcon);
+        
+        let spanValue = document.createElement("SPAN");
+        spanValue.innerHTML = value;
+        containerHTML.appendChild(spanValue);
+        
+        return containerHTML;
+    };
+    let content = document.createElement("DIV");
+    content.style = "display: flex; gap: 15px;";
+    content.appendChild(iconWithValue(SCORE.crystal.value, SCORE.crystal.icon));
+    content.appendChild(iconWithValue(SCORE.gold.value, SCORE.gold.icon));
+    content.appendChild(iconWithValue(`${SCORE.population.value}/${SCORE.population_max.value}`, SCORE.population.icon));
+
+    scoreGUI.update(content);
 }
 
 function bindCastleGUI() {
