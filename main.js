@@ -111,18 +111,22 @@ function mountTowerChoice() {
         slotframeHTML.classList.add("GUI-slotframe");
 
         let imageHTML = document.createElement("IMG");
+        imageHTML.classList.add("GUI-slotframe-img");
         imageHTML.src = Tower.type[type][0];
         slotframeHTML.appendChild(imageHTML);
 
-        let currHTML = document.createElement("IMG");
-        currHTML.src = SCORE[currency].icon;
+        let currHTML = document.createElement("LABEL");
+        let currIcon = document.createElement("IMG");
+        currIcon.src = SCORE[currency].icon;
+        currHTML.appendChild(currIcon);
+        currHTML.append(price);
         slotframeHTML.appendChild(currHTML);
-        slotframeHTML.append(price);
-
+        
         return slotframeHTML;
     };
     
     let content = document.createElement("DIV");
+    content.classList.add("GUI-slotlist");
     content.appendChild(towerOption('basic', 100));
     content.appendChild(towerOption('magic',  50, "crystal"));
     content.appendChild(towerOption('miner', 150));

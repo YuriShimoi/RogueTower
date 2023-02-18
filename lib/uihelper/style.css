@@ -1,5 +1,6 @@
 :root {
     --background-primary: #111111;
+    --background-secondary: #262626;
     --color-primary: white;
 }
 
@@ -93,6 +94,35 @@
                 -1px -1px 0 var(--background-primary),
                 -1px  1px 0 var(--background-primary),
                  1px -1px 0 var(--background-primary);
+}
+
+
+.GUI-slotlist {
+    display: flex;
+    gap: 10px;
+}
+.GUI-slotframe {
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    min-width: 70px;
+    padding: 5px;
+    border: 2px solid var(--background-secondary);
+    border-radius: 2px;
+}
+.GUI-slotframe:hover {
+    border-color: var(--color-primary);
+}
+.GUI-slotframe > .GUI-slotframe-img {
+    display: block;
+    min-width: 48px;
+}
+.GUI-slotframe > label {
+    display: inline-flex;
+    gap: 5px;
 }
 
 
