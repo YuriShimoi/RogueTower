@@ -7,8 +7,8 @@ const SCORE = {
     'population'    : {'icon': "lib/mapping/icons/castle.png", 'value': 0},
     'population_max': {'value': 0},
     
-    'gold'      : {'icon': "lib/mapping/icons/gold.png", 'value': 0},
-    'crystal'   : {'icon': "lib/mapping/icons/crystals.png", 'value': 0}
+    'gold'   : {'icon': "lib/mapping/icons/gold.png", 'value': 0},
+    'crystal': {'icon': "lib/mapping/icons/crystals.png", 'value': 0}
 };
 
 function startGame() {
@@ -93,7 +93,9 @@ function bindCastleGUI() {
 function bindTowerPlaces() {
     let towers = TABLE.querySelectorAll(TableMap.DICTIONARY.tower);
     towers.forEach(tower => tower.onclick = ((e) => {
-        let towerGUI = new FloatingGUI(e.target, "Content", "Tower", false);
+        let towerContent = mountTowerChoice();
+
+        let towerGUI = new FloatingGUI(e.target, towerContent, "Tower", false);
         towerGUI.open(TABLE.querySelector(TableMap.DICTIONARY.container));
         towerGUI.whenClose = () => {
             e.target.removeAttribute("selected");
@@ -101,4 +103,29 @@ function bindTowerPlaces() {
         
         e.target.setAttribute("selected", true);
     }));
+}
+
+function mountTowerChoice() {
+    const towerOption = (type, price, currency="gold") => {
+        let slotframeHTML = document.createElement("SPAN");
+        slotframeHTML.classList.add("GUI-slotframe");
+
+        let imageHTML = document.createElement("IMG");
+        imageHTML.src = Tower.type[type][0];
+        slotframeHTML.appendChild(imageHTML);
+
+        let currHTML = document.createElement("IMG");
+        currHTML.src = SCORE[currency].icon;
+        slotframeHTML.appendChild(currHTML);
+        slotframeHTML.append(price);
+
+        return slotframeHTML;
+    };
+    
+    let content = document.createElement("DIV");
+    content.appendChild(towerOption('basic', 100));
+    content.appendChild(towerOption('magic',  50, "crystal"));
+    content.appendChild(towerOption('miner', 150));
+
+    return content;
 }
