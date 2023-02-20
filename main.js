@@ -1,4 +1,5 @@
 var MAPPING  = null;
+var TOWERS   = [];
 var CONTROL  = null;
 var scoreGUI = null;
 
@@ -93,43 +94,69 @@ function bindCastleGUI() {
 function bindTowerPlaces() {
     let towers = TABLE.querySelectorAll(TableMap.DICTIONARY.tower);
     towers.forEach(tower => tower.onclick = ((e) => {
-        let towerContent = mountTowerChoice();
+        let tower_element = e.target;
+        let t_coord = [tower_element.getAttribute('x'), tower_element.getAttribute('y')];
 
-        let towerGUI = new FloatingGUI(e.target, towerContent, "Tower", false);
+        let towerContent = hasTower(...t_coord)? mountTowerUpgrades(...t_coord): mountTowerChoice(...t_coord);
+
+        let towerGUI = new FloatingGUI(tower_element, towerContent, "Tower", false);
         towerGUI.open(TABLE.querySelector(TableMap.DICTIONARY.container));
         towerGUI.whenClose = () => {
-            e.target.removeAttribute("selected");
+            tower_element.removeAttribute("selected");
         };
         
-        e.target.setAttribute("selected", true);
+        tower_element.setAttribute("selected", true);
     }));
 }
 
-function mountTowerChoice() {
-    const towerOption = (type, price, currency="gold") => {
-        let slotframeHTML = document.createElement("SPAN");
-        slotframeHTML.classList.add("GUI-slotframe");
+function mountTowerSlot(type, price, currency="gold", onclick=null) {
+    let slotframeHTML = document.createElement("SPAN");
+    slotframeHTML.classList.add("GUI-slotframe");
+    if(onclick !== null) slotframeHTML.onclick = onclick;
 
-        let imageHTML = document.createElement("IMG");
-        imageHTML.classList.add("GUI-slotframe-img");
-        imageHTML.src = Tower.type[type][0];
-        slotframeHTML.appendChild(imageHTML);
+    let imageHTML = document.createElement("IMG");
+    imageHTML.classList.add("GUI-slotframe-img");
+    imageHTML.src = Tower.type[type][0];
+    slotframeHTML.appendChild(imageHTML);
 
-        let currHTML = document.createElement("LABEL");
-        let currIcon = document.createElement("IMG");
-        currIcon.src = SCORE[currency].icon;
-        currHTML.appendChild(currIcon);
-        currHTML.append(price);
-        slotframeHTML.appendChild(currHTML);
-        
-        return slotframeHTML;
-    };
+    let currHTML = document.createElement("LABEL");
+    let currIcon = document.createElement("IMG");
+    currIcon.src = SCORE[currency].icon;
+    currHTML.appendChild(currIcon);
+    currHTML.append(price);
+    slotframeHTML.appendChild(currHTML);
     
+    return slotframeHTML;
+}
+
+function mountTowerUpgrades(_x, _y) {
     let content = document.createElement("DIV");
     content.classList.add("GUI-slotlist");
-    content.appendChild(towerOption('basic', 100));
-    content.appendChild(towerOption('magic',  50, "crystal"));
-    content.appendChild(towerOption('miner', 150));
+    content.appendChild(mountTowerSlot('basic', 150, "gold", () => setTower(_x, _y, 'basic', 2)));
 
     return content;
+}
+
+function mountTowerChoice(_x, _y) {
+    let content = document.createElement("DIV");
+    content.classList.add("GUI-slotlist");
+    content.appendChild(mountTowerSlot('basic', 100, "gold", () => setTower(_x, _y, 'basic')));
+    content.appendChild(mountTowerSlot('magic',  50, "crystal", () => setTower(_x, _y, 'magic')));
+    content.appendChild(mountTowerSlot('miner', 150, "gold", () => setTower(_x, _y, 'miner')));
+
+    return content;
+}
+
+function hasTower(_x, _y) {
+    return Boolean(TOWERS.find(t => t.x == _x && t.y == _y));
+}
+
+function setTower(_x, _y, type=null, level=1) {
+    let exist_tower = TOWERS.find(t => t.x == _x && t.y == _y);
+    if(exist_tower) {
+        exist_tower.level = level;
+    }
+    else {
+        TOWERS.push({'x': _x, 'y': _y, 'type': type, 'level': level});
+    }
 }
