@@ -138,9 +138,9 @@ function mountTowerUpgrades(_x, _y) {
     let actual_tower = TOWERS.find(t => t.x == _x && t.y == _y);
     let ttype  = actual_tower.type;
     let tlevel = actual_tower.level+1;
+    let tprice = Tower.base_price[ttype]*(2**(tlevel-1));
 
-    content.appendChild(mountTowerSlot(ttype, Tower.base_price[ttype]*(2**(tlevel-1)), Tower.base_currency[ttype], () => setTower(_x, _y, ttype, tlevel)));
-
+    content.appendChild(mountTowerSlot(ttype, tprice, Tower.base_currency[ttype], () => setTower(_x, _y, ttype, tlevel)));
     return content;
 }
 
