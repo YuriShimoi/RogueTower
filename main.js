@@ -3,7 +3,9 @@ var TOWERS   = [];
 var CONTROL  = null;
 var scoreGUI = null;
 
-const TABLE = document.getElementById("content");
+const TABLE   = document.getElementById("content");
+var CONTAINER = null;
+
 const SCORE = {
     'population'    : {'icon': "lib/mapping/icons/castle.png", 'value': 0},
     'population_max': {'value': 0},
@@ -19,6 +21,7 @@ function startGame() {
         MAPPING = new TableMap(29, 15, TABLE);
         CONTROL = new RaidControl(MAPPING);
         MAPPING.plot().then(() => {
+            CONTAINER = TABLE.querySelector(TableMap.DICTIONARY.container);
             startGUI();
             bindCastleGUI();
             bindTowerPlaces();
@@ -55,7 +58,7 @@ function startGUI() {
     content.appendChild(iconWithValue(SCORE.gold.value, SCORE.gold.icon));
     content.appendChild(iconWithValue(`${SCORE.population.value}/${SCORE.population_max.value}`, SCORE.population.icon));
 
-    scoreGUI = new StaticGUI(content, "", "bottomleft", TABLE.querySelector(TableMap.DICTIONARY.container));
+    scoreGUI = new StaticGUI(content, "", "bottomleft", CONTAINER);
     scoreGUI.open();
 }
 
@@ -87,7 +90,7 @@ function bindCastleGUI() {
     let castle = TABLE.querySelector(TableMap.DICTIONARY.castle);
     castle.onclick = (e) => {
         let castleGUI = new FloatingGUI(e.target, JSON.stringify(SCORE), "Castle", false);
-        castleGUI.open(TABLE.querySelector(TableMap.DICTIONARY.container));
+        castleGUI.open(CONTAINER);
     }
 }
 
@@ -100,7 +103,7 @@ function bindTowerPlaces() {
         let towerContent = hasTower(...t_coord)? mountTowerUpgrades(...t_coord): mountTowerChoice(...t_coord);
 
         let towerGUI = new FloatingGUI(tower_element, towerContent, "Tower", false);
-        towerGUI.open(TABLE.querySelector(TableMap.DICTIONARY.container));
+        towerGUI.open(CONTAINER);
         towerGUI.whenClose = () => {
             tower_element.removeAttribute("selected");
         };
@@ -132,7 +135,11 @@ function mountTowerSlot(type, price, currency="gold", onclick=null) {
 function mountTowerUpgrades(_x, _y) {
     let content = document.createElement("DIV");
     content.classList.add("GUI-slotlist");
-    content.appendChild(mountTowerSlot('basic', 150, "gold", () => setTower(_x, _y, 'basic', 2)));
+    let actual_tower = TOWERS.find(t => t.x == _x && t.y == _y);
+    let ttype  = actual_tower.type;
+    let tlevel = actual_tower.level+1;
+
+    content.appendChild(mountTowerSlot(ttype, Tower.base_price[ttype]*(2**(tlevel-1)), Tower.base_currency[ttype], () => setTower(_x, _y, ttype, tlevel)));
 
     return content;
 }
@@ -159,4 +166,14 @@ function setTower(_x, _y, type=null, level=1) {
     else {
         TOWERS.push({'x': _x, 'y': _y, 'type': type, 'level': level});
     }
+
+    if(type) {
+        let tileHTML = CONTAINER.querySelector(`.tbm-tile[x="${_x}"][y="${_y}"][active]`);
+        if(tileHTML) {
+            tileHTML.classList.add("tbm-tile-tower");
+            tileHTML.style.setProperty("--image", `url(${Tower.CSSPath[type]})`);
+        }
+    }
+    
+    FloatingGUI.closeFloats(CONTAINER);
 }

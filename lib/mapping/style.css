@@ -211,6 +211,27 @@
 
 
 
+.tbm-tile.tbm-tile-wall.tbm-tile-tower[active] {
+    --image: "";
+}
+.tbm-tile.tbm-tile-wall.tbm-tile-tower[active]::after {
+    background: var(--image);
+    width: 32px;
+    height: 32px;
+    border: none;
+
+    background-size: cover;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+}
+.tbm-tile.tbm-tile-wall.tbm-tile-tower[active][selected]::after {
+    background: var(--image);
+    background-size: cover;
+    border: 1px solid white;
+}
+
+
+
 /* ANIMATIONS */
 @keyframes PopIn {
     from {
