@@ -119,7 +119,7 @@ function mountTowerSlot(type, price, currency="gold", onclick=null) {
 
     let imageHTML = document.createElement("IMG");
     imageHTML.classList.add("GUI-slotframe-img");
-    imageHTML.src = Tower.type[type][0];
+    imageHTML.src = Tower.types[type][0];
     slotframeHTML.appendChild(imageHTML);
 
     let currHTML = document.createElement("LABEL");
@@ -135,22 +135,17 @@ function mountTowerSlot(type, price, currency="gold", onclick=null) {
 function mountTowerUpgrades(_x, _y) {
     let content = document.createElement("DIV");
     content.classList.add("GUI-slotlist");
-    let actual_tower = TOWERS.find(t => t.x == _x && t.y == _y);
-    let ttype  = actual_tower.type;
-    let tlevel = actual_tower.level+1;
-    let tprice = Tower.base_price[ttype]*(2**(tlevel-1));
-
-    content.appendChild(mountTowerSlot(ttype, tprice, Tower.base_currency[ttype], () => setTower(_x, _y, ttype, tlevel)));
+    let stower = TOWERS.find(t => t.x == _x && t.y == _y);
+    content.appendChild(mountTowerSlot(stower.type, stower.upgrade_price, stower.currency, () => setTower(_x, _y, stower.type, stower.level+1)));
     return content;
 }
 
 function mountTowerChoice(_x, _y) {
     let content = document.createElement("DIV");
     content.classList.add("GUI-slotlist");
-    content.appendChild(mountTowerSlot('basic', 100, "gold", () => setTower(_x, _y, 'basic')));
-    content.appendChild(mountTowerSlot('magic',  50, "crystal", () => setTower(_x, _y, 'magic')));
-    content.appendChild(mountTowerSlot('miner', 150, "gold", () => setTower(_x, _y, 'miner')));
-
+    for(let ttype of Object.keys(Tower.types)) {
+        content.appendChild(mountTowerSlot(ttype, Tower.base_price[ttype], Tower.base_currency[ttype], () => setTower(_x, _y, ttype)));
+    }
     return content;
 }
 
@@ -164,7 +159,7 @@ function setTower(_x, _y, type=null, level=1) {
         exist_tower.level = level;
     }
     else {
-        TOWERS.push({'x': _x, 'y': _y, 'type': type, 'level': level});
+        TOWERS.push(new Tower(type, _x, _y, level));
     }
 
     if(type) {
